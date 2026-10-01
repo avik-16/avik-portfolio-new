@@ -15,7 +15,7 @@ const HERO_STATS = [
 const SOCIAL_LINKS = [
   { icon: "globe", label: "Website", href: "https://starrocketry.github.io" },
   { icon: "github", label: "GitHub", href: "https://github.com" },
-  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/avik-rajeev-babu" },
   { icon: "mail", label: "Email", href: "mailto:avikrajeevbabu@gmail.com" },
 ];
 
@@ -23,7 +23,7 @@ const SOCIAL_LINKS = [
 const CONTACTS = [
   { icon: "mail", label: "avikrajeevbabu@gmail.com", href: "mailto:avikrajeevbabu@gmail.com" },
   { icon: "github", label: "GitHub", href: "https://github.com" },
-  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/avik-rajeev-babu" },
   { icon: "globe", label: "starrocketry.github.io", href: "https://starrocketry.github.io" },
 ];
 
