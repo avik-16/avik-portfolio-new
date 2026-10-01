@@ -1,0 +1,302 @@
+/* ============================================================
+   ALL SITE CONTENT LIVES IN THIS FILE.
+   Edit these arrays to add/remove/change projects, jobs, skills,
+   awards, etc. Nothing here affects layout — just content.
+   Layout lives in index.html; visuals live in style.css.
+   ============================================================ */
+
+const HERO_STATS = [
+  { label: "Target Apogee, M-Class", value: "10,000 ft" },
+  { label: "Verified Flight Apogee", value: "461 m" },
+  { label: "Seed Fund Sanctioned", value: "₹90,000" },
+  { label: "Flight & Defence Projects", value: "7+" },
+];
+
+const SOCIAL_LINKS = [
+  { icon: "globe", label: "Website", href: "https://starrocketry.github.io" },
+  { icon: "github", label: "GitHub", href: "https://github.com" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+  { icon: "mail", label: "Email", href: "mailto:avikrajeevbabu@gmail.com" },
+];
+
+// Same links, shown again in the footer with fuller labels.
+const CONTACTS = [
+  { icon: "mail", label: "avikrajeevbabu@gmail.com", href: "mailto:avikrajeevbabu@gmail.com" },
+  { icon: "github", label: "GitHub", href: "https://github.com" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+  { icon: "globe", label: "starrocketry.github.io", href: "https://starrocketry.github.io" },
+];
+
+// Each project card on the site is generated from this array.
+// To add a project: copy one block, give it a unique "id", fill in the fields.
+// To remove a project: delete its block. Order here = order shown on the page.
+const PROJECTS_DATA = [
+  {
+    id: "mclass",
+    domain: "Propulsion",
+    period: "Mar 2025 — Present",
+    title: "Solid Propellant M-Class Rocket",
+    description:
+      "An M-class solid rocket with active stabilization, built around a Thrust Vector Control system driving a contour nozzle to hold a 10,000 ft apogee.",
+    metrics: [
+      { label: "Target Apogee", value: "10,000 ft" },
+      { label: "Control", value: "TVC + Contour Nozzle" },
+      { label: "Status", value: "In Development" },
+    ],
+    tags: ["CATIA", "TVC", "ANSYS", "Propulsion"],
+  },
+  {
+    id: "srtv",
+    domain: "Avionics",
+    period: "Sept 2025 — Mar 2026",
+    title: "Sounding Rocket Workshop Test Vehicle",
+    description:
+      "A low-cost sounding rocket built for the team's sounding rocketry workshop, flying a custom ESP32 flight computer with a Kalman filter fusing BMP280 and DHT11 data for altitude, temperature, pressure, and humidity. Flew on a G220 SRM with stabilized LoRa telemetry.",
+    metrics: [
+      { label: "Verified Apogee", value: "461 m" },
+      { label: "Flight Computer", value: "ESP32 + Kalman" },
+      { label: "Motor", value: "G220 SRM" },
+    ],
+    tags: ["ESP32", "Kalman Filter", "LoRa Telemetry", "Flight Test"],
+  },
+  {
+    id: "jclass",
+    domain: "Propulsion",
+    period: "Sept 2025 — Mar 2026",
+    title: "Solid Propellant J-Class Rocket",
+    description:
+      "A model rocket with Thrust Vector Control targeting a 3,000 ft apogee, running a PID controller across a mix of COTS and custom hardware. TVC response and motor thrust curves verified through static testing and simulation.",
+    metrics: [
+      { label: "Target Apogee", value: "3,000 ft" },
+      { label: "Control", value: "PID + TVC" },
+      { label: "Status", value: "Launch Pending" },
+    ],
+    tags: ["PID Control", "Static Testing", "OpenMotor"],
+  },
+  {
+    id: "missile",
+    domain: "Defence",
+    period: "Mar 2025 — Jun 2025",
+    title: "Missile System Design Development",
+    description:
+      "UAV and missile concepts designed and optimized for a national-level defence innovation challenge — CAD modeling with aero/structural analysis in ANSYS, XFLR5, and JavaFoil, paired with an OpenCV/YOLO target detection and lock system. Benchmarked against the IAI Heron UAV and BDL-MSRAM.",
+    metrics: [
+      { label: "Vision Stack", value: "OpenCV / YOLO" },
+      { label: "Analysis", value: "ANSYS / XFLR5" },
+      { label: "Benchmark", value: "Heron · BDL-MSRAM" },
+    ],
+    tags: ["OpenCV", "YOLO", "ANSYS", "XFLR5", "JavaFoil"],
+  },
+  {
+    id: "uav",
+    domain: "UAV",
+    period: "Jul 2025 — Aug 2025",
+    title: "Aeromodelling & UAV Manufacturing",
+    description:
+      "UAVs manufactured from balsa wood, composites, and 3D-printed components, with payload, endurance, and aerobatics testing across RC planes and UAV prototypes.",
+    metrics: [
+      { label: "Materials", value: "Balsa · Composite" },
+      { label: "Testing", value: "Payload · Endurance" },
+      { label: "Domain", value: "UAV" },
+    ],
+    tags: ["Aeromodelling", "Manufacturing", "3D Printing"],
+  },
+  {
+    id: "umv",
+    domain: "Marine",
+    period: "Jul 2025 — Aug 2025",
+    title: "UMV Design and Manufacturing",
+    description:
+      "Unmanned marine vehicles built from marine-grade plywood, composites, and 3D-printed components, with payload, endurance, and maneuverability testing across RC boats and UMV prototypes.",
+    metrics: [
+      { label: "Materials", value: "Marine Ply · Composite" },
+      { label: "Testing", value: "Payload · Maneuvering" },
+      { label: "Domain", value: "UMV" },
+    ],
+    tags: ["UMV", "Manufacturing", "Marine Systems"],
+  },
+  {
+    id: "rc-testbed",
+    domain: "Flight Test",
+    period: "Nov 2024",
+    title: "RC Aircraft Payload Testbed",
+    description:
+      "An RC aircraft fabricated as a payload deployment testbed in a technical workshop, integrating motor, ESC, receiver, and servos. Test flights validated control response and servo-based payload drop.",
+    metrics: [
+      { label: "Systems", value: "Motor · ESC · Servo" },
+      { label: "Test", value: "Payload Drop" },
+      { label: "Status", value: "Flight Validated" },
+    ],
+    tags: ["RC Aircraft", "Flight Test", "Payload Systems"],
+  },
+];
+
+// The "Experience" timeline. Most recent role first.
+// "current: true" adds the "In Progress" tag and a highlighted timeline dot.
+const TIMELINE_DATA = [
+  {
+    id: "star",
+    org: "STAR Rocketry Team",
+    place: "REVA University, Bangalore",
+    role: "Research & Development Lead",
+    period: "Feb 2025 — Present",
+    current: true,
+    bullets: [
+      "Developed model rockets for competitions and research.",
+      "Designed and developed solid-propelled rockets with avionics and propulsion systems.",
+      "Conducted avionics and CO₂-based parachute ejection ground tests; currently driving flight readiness and full system integration.",
+      "Delivered successful rockets and CanSats while mentoring juniors and strengthening team capability.",
+    ],
+    highlight: "Secured ₹90,000 REVA University seed fund",
+  },
+  {
+    id: "cingularity",
+    org: "Cingularity Aerospace Pvt Ltd",
+    place: "Bangalore, India",
+    role: "Intern",
+    period: "Jul 2025 — Aug 2025",
+    current: false,
+    bullets: [
+      "Worked on UAV systems and aerospace component design.",
+      "Contributed to CAD modeling and prototype development.",
+      "Assisted in composite component fabrication and assembly.",
+      "Designed and developed UMV systems.",
+    ],
+    highlight: null,
+  },
+  {
+    id: "corizo",
+    org: "Corizo — Drona Aviation",
+    place: "Online",
+    role: "Workshop Trainee",
+    period: "Aug 2024 — Nov 2024",
+    current: false,
+    bullets: [
+      "Completed a hands-on drone engineering workshop covering UAV fundamentals, system-level understanding, and drone mapping.",
+      "Used CAD software to model airframe components and estimate weight distribution.",
+      "Programmed autonomous flight missions with Cygnus IDE and the Primus V5 flight controller — waypoints, flight parameters, and mission logic for mapping runs.",
+    ],
+    highlight: null,
+  },
+];
+
+// The "Technical Skills" section groups tools under categories.
+// Add a new category by adding a new object; add a tool by adding to "items".
+const ARSENAL_DATA = [
+  {
+    category: "Design & CAD",
+    items: ["CATIA", "SolidWorks", "Onshape", "GD&T", "KiCad"],
+  },
+  {
+    category: "Simulation & Analysis",
+    items: [
+      "ANSYS Static Structural",
+      "ANSYS Fluent",
+      "SimScale",
+      "Flow5",
+      "GMAT",
+      "OpenRocket",
+      "OpenMotor",
+    ],
+  },
+  {
+    category: "Code",
+    items: ["Python", "MATLAB", "Deep Learning", "OpenCV / YOLO"],
+  },
+  {
+    category: "Shop Floor",
+    items: ["3D Printing", "Soldering", "Lathe", "PCB Design", "Machine Shop"],
+  },
+];
+
+const COURSEWORK = [
+  "Rocket Propulsion", "Satellite Communication", "Orbital Mechanics", "Hypersonics",
+  "Communication Systems", "Gas Dynamics", "Control Engineering", "Flight Mechanics",
+  "Material Science", "Astrophysics", "Gas Turbines", "Structures", "CFD", "FEM",
+];
+
+// Self Study = things learned independently, outside formal coursework.
+const SELF_STUDY = ["PCB Designing", "Rocketry", "Aeromodelling", "UMVs"];
+
+// Certifications = formal, verifiable training/workshops completed.
+// (Kept as a separate list from Self Study on purpose — different things.)
+const CERTIFICATIONS = [
+  "RC Aircraft Workshop, REVA University (by AEROGO)",
+  "Vocational Training on Mastering CATIA V5, REVA University",
+];
+
+const AWARDS = [
+  "Seed fund of ₹90,000 sanctioned by REVA University for a High-Powered Solid Propellant Rocket project.",
+  "Participated in R-Create Project Expo 2025, showcasing a model rocket with active controls.",
+  "Conducted a Sounding Rocketry workshop for REVA University aerospace students, class of 2024–28.",
+  "Participated in aeromodelling competitions at Hindustan Group of Institutions, Chennai and NMIT, Bangalore.",
+  "Organized the EFX India IAM3D event.",
+];
+
+/* ============================================================
+   COSMOS EASTER EGG — hidden planets scattered down the page.
+   Hover a planet to see its name; click it to swap the whole
+   site's color theme to that world's palette (saved only in
+   YOUR browser via localStorage — nobody else's view changes).
+   Desktop-only (hidden on narrow/touch screens).
+
+   "top" is a rough pixel distance down the page — doesn't need
+   to be exact, these are meant to feel like distant background
+   objects, not precisely placed markers.
+   ============================================================ */
+
+const DEFAULT_THEME = {
+  bg: "#05060a",
+  ivory: "#f3f1ea",
+  gold: "#c9a876",
+  frost: "#9db4c9",
+  steel: "#888d97",
+};
+
+const PLANETS = [
+  {
+    id: "kharon",
+    name: "Kharon",
+    top: 700,
+    side: "left",
+    offset: "3%",
+    size: 9,
+    theme: { bg: "#04070c", ivory: "#eaf3f3", gold: "#7fe3e0", frost: "#a9d8e6", steel: "#7c98a0" },
+  },
+  {
+    id: "emberos",
+    name: "Emberos",
+    top: 1650,
+    side: "right",
+    offset: "4%",
+    size: 11,
+    theme: { bg: "#0c0503", ivory: "#f7e9df", gold: "#e4572e", frost: "#f2a65a", steel: "#a37c6b" },
+  },
+  {
+    id: "virelle",
+    name: "Virelle",
+    top: 2650,
+    side: "left",
+    offset: "2.5%",
+    size: 8,
+    theme: { bg: "#06040b", ivory: "#ece7f7", gold: "#6fcf97", frost: "#b892ff", steel: "#8b84a3" },
+  },
+  {
+    id: "solmere",
+    name: "Solmere",
+    top: 3750,
+    side: "right",
+    offset: "3.5%",
+    size: 10,
+    theme: { bg: "#0a0602", ivory: "#f7ecd8", gold: "#f2c14e", frost: "#d9b88f", steel: "#a8967d" },
+  },
+  {
+    id: "nyxara",
+    name: "Nyxara",
+    top: 4650,
+    side: "left",
+    offset: "3%",
+    size: 9,
+    theme: { bg: "#05050a", ivory: "#e8e9f5", gold: "#8f9bff", frost: "#c3c9ff", steel: "#8890b3" },
+  },
+];

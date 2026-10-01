@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avik Rajeev Babu — Aerospace Engineering</title>
+  <meta name="description" content="Avik Rajeev Babu — Aerospace Engineering student. UAVs, solid propellant rockets, avionics, and CAD-driven engineering analysis." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (no build step needed — compiles utility classes in the browser) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Your design system -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Edge darkening for a cinematic, lens-like frame -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Subtle static film-grain texture -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Cosmos Easter egg chrome: warp-cut transition, toast, reset link -->
+  <div class="warp-overlay" id="warp-overlay" aria-hidden="true"></div>
+  <div class="theme-toast" id="theme-toast" aria-live="polite"></div>
+  <div class="theme-reset link-underline" id="theme-reset" role="button" tabindex="0">
+    ↺ Return to origin
+  </div>
+
+  <!-- Custom cursor — a small ship that flies with the mouse (desktop only) -->
+  <svg id="ship-cursor" class="ship-cursor" viewBox="0 0 30 30" aria-hidden="true">
+    <ellipse cx="5" cy="15" rx="3.2" ry="2" fill="var(--frost)" opacity="0.55" />
+    <path d="M27 15 L5 6 L11 15 L5 24 Z" fill="var(--gold)" stroke="rgba(5,6,10,0.5)" stroke-width="0.6" />
+  </svg>
+
+  <div class="starfield" aria-hidden="true">
+    <div class="star-layer star-layer--a" id="star-layer-a"></div>
+    <div class="star-layer star-layer--b" id="star-layer-b"></div>
+    <!-- Rare, brief shooting stars — each fires once every 16-25s -->
+    <div class="shooting-star shooting-star--1"></div>
+    <div class="shooting-star shooting-star--2"></div>
+    <div class="shooting-star shooting-star--3"></div>
+  </div>
+
+  <div class="relative z-10">
+    <!-- Hidden planets — see data.js PLANETS. Desktop only. -->
+    <div class="planet-field" id="planet-field" aria-hidden="true"></div>
+
+
+    <!-- ============ NAV ============ -->
+    <nav class="fixed top-0 inset-x-0 z-50 bg-[var(--bg)]/70 backdrop-blur-md border-b border-[var(--hairline)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+        <a href="#top" class="f-mono text-[13px] tracking-[0.25em] text-[var(--ivory)]">A · R · B</a>
+        <div class="hidden md:flex items-center gap-9">
+          <a href="#missions" class="link-underline f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">Log</a>
+          <a href="#chronology" class="link-underline f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">Experience</a>
+          <a href="#arsenal" class="link-underline f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">Skills</a>
+          <a href="#about" class="link-underline f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">About</a>
+          <a href="#contact" class="link-underline f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">Contact</a>
+        </div>
+        <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="link-underline link-glow hidden md:inline-flex items-center gap-1.5 f-mono text-[10.5px] tracking-[0.2em] uppercase text-[var(--gold)] px-3 py-1.5">Hire Me</a>
+      </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section id="top" class="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden">
+      <svg class="hero-ring" viewBox="0 0 400 400" aria-hidden="true">
+        <ellipse cx="200" cy="200" rx="182" ry="61" fill="none" stroke="url(#ringGradGold)" stroke-width="0.7" />
+        <ellipse cx="197" cy="199" rx="182" ry="61" fill="none" stroke="url(#ringGradFrost)" stroke-width="0.4" />
+        <ellipse cx="200" cy="200" rx="140" ry="46" fill="none" stroke="url(#ringGradGold)" stroke-width="0.4" />
+        <ellipse cx="200" cy="200" rx="102" ry="33" fill="none" stroke="url(#ringGradFrost)" stroke-width="0.3" />
+        <defs>
+          <linearGradient id="ringGradGold" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#C9A876" stop-opacity="0" />
+            <stop offset="50%" stop-color="#C9A876" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#C9A876" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="ringGradFrost" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#9DB4C9" stop-opacity="0" />
+            <stop offset="50%" stop-color="#9DB4C9" stop-opacity="0.55" />
+            <stop offset="100%" stop-color="#9DB4C9" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Black hole at the exact center of the ring — stays still and
+           pulses gently while the rings above revolve around it. -->
+      <div class="black-hole-wrap" aria-hidden="true">
+        <div class="black-hole"></div>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-6 md:px-10 w-full relative">
+        <div class="reveal-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Aerospace Engineering Student · Bangalore, India</span>
+          </div>
+        </div>
+
+        <div class="reveal-on-scroll" style="transition-delay:80ms">
+          <h1 class="f-display text-[13vw] md:text-[5.6rem] leading-[1.02] font-light tracking-tight">
+            <span class="shimmer-text">Avik Rajeev</span><br />
+            <span class="text-[var(--steel)]">Babu</span>
+          </h1>
+        </div>
+
+        <div class="reveal-on-scroll" style="transition-delay:160ms">
+          <p class="mt-7 max-w-xl text-[15px] leading-relaxed text-[var(--steel)] font-light">
+            UAVs, solid propellant rockets, avionics, and CAD-driven engineering
+            analysis. Building flight hardware that actually leaves the ground.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll" style="transition-delay:220ms">
+          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mt-9">
+            <a href="#missions" class="link-underline link-glow flex items-center gap-1.5 f-mono text-[11px] tracking-[0.18em] uppercase text-[var(--gold)] px-3 py-1.5">
+              View Projects <i data-lucide="arrow-up-right" style="width:12px;height:12px"></i>
+            </a>
+            <div id="hero-social" class="contents"></div>
+          </div>
+        </div>
+
+        <div class="reveal-on-scroll" style="transition-delay:300ms">
+          <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 mt-20 pt-10 border-t border-[var(--hairline)]"></div>
+        </div>
+      </div>
+
+      <a href="#missions" class="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-[var(--steel)] hover:text-[var(--ivory)] transition-colors">
+        <span class="f-mono text-[9.5px] tracking-[0.3em] uppercase">Scroll</span>
+        <i data-lucide="chevron-down" style="width:13px;height:13px"></i>
+      </a>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="missions" class="relative py-28 md:py-36">
+      <div class="max-w-5xl mx-auto px-6 md:px-10">
+        <div class="reveal-on-scroll mb-16">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Flight Records</span>
+          </div>
+          <h2 class="f-display text-4xl md:text-5xl font-light tracking-tight text-[var(--ivory)]">Projects</h2>
+          <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--steel)] font-light">
+            Design-to-fabrication and design-to-flight work across solid propulsion, guided systems, UAVs, and UMVs.
+          </p>
+        </div>
+        <div id="projects-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="chronology" class="relative py-28 md:py-36 border-t border-[var(--hairline)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10">
+        <div class="reveal-on-scroll mb-16">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Ascent Log</span>
+          </div>
+          <h2 class="f-display text-4xl md:text-5xl font-light tracking-tight text-[var(--ivory)]">Experience</h2>
+          <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--steel)] font-light">
+            Positions charted in order, most recent first.
+          </p>
+        </div>
+        <div class="relative pl-8 md:pl-10">
+          <div class="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-[var(--gold)]/60 via-[var(--hairline)] to-transparent"></div>
+          <div id="timeline-list" class="space-y-16"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="arsenal" class="relative py-28 md:py-36 border-t border-[var(--hairline)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10">
+        <div class="reveal-on-scroll mb-16">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Systems Loadout</span>
+          </div>
+          <h2 class="f-display text-4xl md:text-5xl font-light tracking-tight text-[var(--ivory)]">Technical Skills</h2>
+          <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--steel)] font-light">
+            Tools spanning CAD, structural and CFD simulation, orbital analysis, embedded code, and the shop floor.
+          </p>
+        </div>
+        <div id="skills-list" class="grid md:grid-cols-2 gap-x-12 gap-y-12"></div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="relative py-28 md:py-36 border-t border-[var(--hairline)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10">
+        <div class="reveal-on-scroll mb-16">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Mission Background</span>
+          </div>
+          <h2 class="f-display text-4xl md:text-5xl font-light tracking-tight text-[var(--ivory)]">About</h2>
+          <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--steel)] font-light">
+            Aerospace Engineering student with hands-on experience in UAVs, rocket systems, CAD design, and engineering analysis — seeking opportunities to contribute to innovative aerospace and defence projects.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll">
+          <div class="pb-10 mb-10 border-b border-[var(--hairline)]">
+            <div class="f-mono text-[10px] tracking-[0.2em] uppercase text-[var(--gold)] mb-2">Education</div>
+            <div class="f-display text-xl font-normal text-[var(--ivory)] mb-1">REVA University</div>
+            <div class="f-mono text-[11px] tracking-wider text-[var(--steel)] mb-5">2023 – 2027 · B.Tech, Aerospace Engineering · Bangalore, India</div>
+            <div class="f-mono text-[10px] tracking-[0.18em] uppercase text-[var(--steel)] mb-3">Coursework</div>
+            <div id="coursework-list" class="flex flex-wrap gap-x-5 gap-y-2"></div>
+          </div>
+        </div>
+
+        <!-- Self Study and Certifications are two separate things on purpose:
+             informal learning vs. verified training. Keep them as separate cards. -->
+        <div class="grid md:grid-cols-2 gap-x-12">
+          <div class="reveal-on-scroll">
+            <div class="pb-8 border-b border-[var(--hairline)] h-full">
+              <div class="f-mono text-[10px] tracking-[0.2em] uppercase text-[var(--gold)] mb-2">Independent Work</div>
+              <div class="f-display text-lg font-normal text-[var(--ivory)] mb-4">Self Study</div>
+              <ul id="self-study-list" class="space-y-2.5"></ul>
+            </div>
+          </div>
+          <div class="reveal-on-scroll" style="transition-delay:90ms">
+            <div class="pb-8 border-b border-[var(--hairline)] h-full">
+              <div class="f-mono text-[10px] tracking-[0.2em] uppercase text-[var(--gold)] mb-2">Verified Training</div>
+              <div class="f-display text-lg font-normal text-[var(--ivory)] mb-4">Certifications</div>
+              <ul id="certifications-list" class="space-y-2.5"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16">
+          <div class="reveal-on-scroll">
+            <div class="f-mono text-[10px] tracking-[0.2em] uppercase text-[var(--gold)] mb-6">Awards &amp; Recognition</div>
+          </div>
+          <div id="awards-list" class="grid md:grid-cols-2 gap-x-10 gap-y-6"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="relative py-28 md:py-36 border-t border-[var(--hairline)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10">
+        <div class="reveal-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-6 h-px bg-[var(--gold)]"></span>
+            <span class="f-mono text-[10.5px] tracking-[0.32em] uppercase text-[var(--gold)]">Open to Internships &amp; Roles</span>
+          </div>
+          <h2 class="f-display text-4xl md:text-5xl font-light tracking-tight text-[var(--ivory)] mb-14">
+            Let's build<br />something that flies.
+          </h2>
+        </div>
+
+        <div class="reveal-on-scroll" style="transition-delay:100ms">
+          <div id="footer-contacts" class="flex flex-wrap gap-x-10 gap-y-4"></div>
+        </div>
+
+        <div class="mt-20 pt-6 border-t border-[var(--hairline)] flex flex-col md:flex-row justify-between gap-2 f-mono text-[10px] tracking-wider text-[var(--steel)]">
+          <span>© 2026 Avik Rajeev Babu — Aerospace · Rocketry · UAV Systems</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script src="cosmos.js"></script>
+</body>
+</html>
