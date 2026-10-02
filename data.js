@@ -15,7 +15,7 @@ const HERO_STATS = [
 const SOCIAL_LINKS = [
   { icon: "globe", label: "Website", href: "https://starrocketry.github.io" },
   { icon: "github", label: "GitHub", href: "https://github.com" },
-  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/avik-rajeev-babu" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
   { icon: "mail", label: "Email", href: "mailto:avikrajeevbabu@gmail.com" },
 ];
 
@@ -23,7 +23,7 @@ const SOCIAL_LINKS = [
 const CONTACTS = [
   { icon: "mail", label: "avikrajeevbabu@gmail.com", href: "mailto:avikrajeevbabu@gmail.com" },
   { icon: "github", label: "GitHub", href: "https://github.com" },
-  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/avik-rajeev-babu" },
+  { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
   { icon: "globe", label: "starrocketry.github.io", href: "https://starrocketry.github.io" },
 ];
 
@@ -253,10 +253,17 @@ const DEFAULT_THEME = {
   steel: "#888d97",
 };
 
+// Five real, confirmed exoplanet discoveries — not our solar system, not
+// invented. "distance" is how far away it actually is, shown in the toast
+// when you land there. Each keeps the terrain style that best matches
+// what's actually known about that world.
 const PLANETS = [
   {
-    id: "kharon",
-    name: "Kharon",
+    // Found in 2005 via gravitational microlensing — a frozen super-Earth,
+    // one of the most distant exoplanets ever confirmed.
+    id: "ogle-390lb",
+    name: "OGLE-2005-BLG-390Lb",
+    distance: "21,500 light-years away",
     top: 700,
     side: "left",
     offset: "3%",
@@ -264,8 +271,11 @@ const PLANETS = [
     theme: { bg: "#04070c", ivory: "#eaf3f3", gold: "#7fe3e0", frost: "#a9d8e6", steel: "#7c98a0" },
   },
   {
-    id: "emberos",
-    name: "Emberos",
+    // A lava world so hot its atmosphere may rain vaporized rock —
+    // nicknamed the "diamond planet" for its carbon-rich interior.
+    id: "cancri-e",
+    name: "55 Cancri e",
+    distance: "41 light-years away",
     top: 1650,
     side: "right",
     offset: "4%",
@@ -273,8 +283,11 @@ const PLANETS = [
     theme: { bg: "#0c0503", ivory: "#f7e9df", gold: "#e4572e", frost: "#f2a65a", steel: "#a37c6b" },
   },
   {
-    id: "virelle",
-    name: "Virelle",
+    // One of the first exoplanets ever confirmed (1992) — a scorched,
+    // irradiated rock orbiting a pulsar. Officially nicknamed "Draugr."
+    id: "draugr",
+    name: "Draugr (PSR B1257+12 b)",
+    distance: "2,300 light-years away",
     top: 2650,
     side: "left",
     offset: "2.5%",
@@ -282,8 +295,11 @@ const PLANETS = [
     theme: { bg: "#06040b", ivory: "#ece7f7", gold: "#6fcf97", frost: "#b892ff", steel: "#8b84a3" },
   },
   {
-    id: "solmere",
-    name: "Solmere",
+    // The real "Tatooine" — a desert world orbiting two suns at once,
+    // confirmed in 2011.
+    id: "kepler-16b",
+    name: "Kepler-16b",
+    distance: "245 light-years away",
     top: 3750,
     side: "right",
     offset: "3.5%",
@@ -291,8 +307,11 @@ const PLANETS = [
     theme: { bg: "#0a0602", ivory: "#f7ecd8", gold: "#f2c14e", frost: "#d9b88f", steel: "#a8967d" },
   },
   {
-    id: "nyxara",
-    name: "Nyxara",
+    // A rocky, potentially habitable world in the TRAPPIST-1 system —
+    // packed so tightly with neighboring planets that they'd loom in its sky.
+    id: "trappist-1e",
+    name: "TRAPPIST-1e",
+    distance: "40 light-years away",
     top: 4650,
     side: "left",
     offset: "3%",
