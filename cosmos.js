@@ -19,36 +19,57 @@ function applyThemeVars(theme) {
   root.style.setProperty("--steel", theme.steel);
 }
 
-// Briefly fades to black (a "warp cut"), swaps the theme underneath
-// while the screen is covered, then fades back in on the new theme.
-function flashToTheme(theme, planetName) {
+// Shows/hides the full landscape (sky, sun, ground, particles) for a
+// given planet id. Passing null hides it and returns to plain space.
+function setLandscape(planetId) {
+  const landscape = document.getElementById("landscape");
+  if (!landscape) return;
+  if (planetId) {
+    document.documentElement.setAttribute("data-landscape", planetId);
+    landscape.classList.add("is-visible");
+  } else {
+    landscape.classList.remove("is-visible");
+    // Wait for the fade-out transition before clearing the attribute,
+    // so the old terrain's colors don't pop off instantly.
+    window.setTimeout(() => {
+      document.documentElement.removeAttribute("data-landscape");
+    }, 1000);
+  }
+}
+
+// Briefly fades to black (a "warp cut"), swaps the theme AND the
+// landscape underneath while the screen is covered, then fades back
+// in on the new world.
+function flashToTheme(theme, planetName, planetId, distance) {
   const overlay = document.getElementById("warp-overlay");
   if (!overlay) {
     applyThemeVars(theme);
+    setLandscape(planetId || null);
     return;
   }
   overlay.style.opacity = "1";
   window.setTimeout(() => {
     applyThemeVars(theme);
+    setLandscape(planetId || null);
     window.setTimeout(() => {
       overlay.style.opacity = "0";
     }, 60);
   }, 420);
 
-  showThemeToast(planetName);
+  showThemeToast(planetName, distance);
 }
 
-function showThemeToast(planetName) {
+function showThemeToast(planetName, distance) {
   const toast = document.getElementById("theme-toast");
   if (!toast) return;
   toast.textContent = planetName
-    ? `Now viewing under the light of ${planetName}`
+    ? `Now viewing under the light of ${planetName}${distance ? ` — ${distance}` : ""}`
     : "Back to the original theme";
   toast.classList.add("is-visible");
   window.clearTimeout(showThemeToast._t);
   showThemeToast._t = window.setTimeout(() => {
     toast.classList.remove("is-visible");
-  }, 3200);
+  }, 4200);
 }
 
 function showResetControl() {
@@ -67,7 +88,7 @@ function selectPlanet(planet) {
   } catch (e) {
     /* localStorage unavailable (private browsing, etc) — theme just won't persist */
   }
-  flashToTheme(planet.theme, planet.name);
+  flashToTheme(planet.theme, planet.name, planet.id, planet.distance);
   showResetControl();
 }
 
@@ -77,7 +98,7 @@ function resetTheme() {
   } catch (e) {
     /* ignore */
   }
-  flashToTheme(DEFAULT_THEME, null);
+  flashToTheme(DEFAULT_THEME, null, null);
   hideResetControl();
 }
 
@@ -90,11 +111,30 @@ function initThemeFromStorage() {
     const planet = PLANETS.find((p) => p.id === savedId);
     if (planet) {
       applyThemeVars(planet.theme);
+      setLandscape(planet.id);
       showResetControl();
     }
   } catch (e) {
     /* localStorage unavailable — just fall back to the default theme */
   }
+}
+
+// ---------- landscape particles ----------
+// 18 generic dots, randomly placed/timed. Which direction and color
+// they animate in comes entirely from CSS via [data-landscape="..."]
+// on <html> — this function just needs to create them once.
+function renderLandscapeParticles() {
+  const field = document.getElementById("landscape-particles");
+  if (!field) return;
+  const count = 18;
+  let html = "";
+  for (let i = 0; i < count; i++) {
+    const left = Math.random() * 100;
+    const duration = 6 + Math.random() * 8;
+    const delay = Math.random() * -14;
+    html += `<span class="particle" style="left:${left}%; animation-duration:${duration}s; animation-delay:${delay}s;"></span>`;
+  }
+  field.innerHTML = html;
 }
 
 // ---------- rendering the planets ----------
@@ -110,7 +150,7 @@ function renderPlanets() {
         type="button"
         class="planet"
         data-planet-id="${p.id}"
-        aria-label="Switch the site's theme to ${p.name}"
+        aria-label="Switch the site's theme to ${p.name}, ${p.distance}"
         style="top:${p.top}px; ${sideStyle} width:${p.size}px; height:${p.size}px; background:${bg};"
       >
         <span class="planet-label f-mono">${p.name}</span>
@@ -181,6 +221,7 @@ function initShipCursor() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderPlanets();
+  renderLandscapeParticles();
   initThemeFromStorage();
   initShipCursor();
 
