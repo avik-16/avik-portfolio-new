@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,7 +37,7 @@
 
   <!-- Custom cursor — a small ship that flies with the mouse (desktop only) -->
   <svg id="ship-cursor" class="ship-cursor" viewBox="0 0 30 30" aria-hidden="true">
-    <ellipse cx="5" cy="15" rx="3.2" ry="2" fill="var(--frost)" opacity="0.55" />
+    <circle class="ship-engine-glow" cx="5" cy="15" r="2.6" fill="var(--gold)" />
     <path d="M27 15 L5 6 L11 15 L5 24 Z" fill="var(--gold)" stroke="rgba(5,6,10,0.5)" stroke-width="0.6" />
   </svg>
 
@@ -48,6 +49,23 @@
     <div class="shooting-star shooting-star--2"></div>
     <div class="shooting-star shooting-star--3"></div>
   </div>
+
+  <!-- Planet landscape — hidden until a planet is clicked. Which planet
+       is active is set via [data-landscape] on <html> in cosmos.js; the
+       sky/ground/sun shapes and particle motion all key off that. Once
+       active, scrolling drives both the "descent" (see #planet-approach
+       below) and an ongoing day/night cycle for the rest of the page. -->
+  <div class="landscape" id="landscape" aria-hidden="true">
+    <div class="landscape-sky"></div>
+    <div class="landscape-sun" id="landscape-sun"></div>
+    <div class="landscape-particles" id="landscape-particles"></div>
+    <div class="landscape-ground"></div>
+    <div class="landscape-night-overlay" id="landscape-night-overlay"></div>
+  </div>
+
+  <!-- The planet as seen from space right after clicking it — scrolling
+       scales this up and fades it into the landscape above. -->
+  <div id="planet-approach" aria-hidden="true"></div>
 
   <div class="relative z-10">
     <!-- Hidden planets — see data.js PLANETS. Desktop only. -->
@@ -95,6 +113,9 @@
       <div class="black-hole-wrap" aria-hidden="true">
         <div class="black-hole"></div>
       </div>
+
+      <!-- A second, smaller anomaly off to the side — the wormhole -->
+      <div class="wormhole" aria-hidden="true"></div>
 
       <div class="max-w-5xl mx-auto px-6 md:px-10 w-full relative">
         <div class="reveal-on-scroll">
