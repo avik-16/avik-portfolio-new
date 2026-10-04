@@ -253,10 +253,11 @@ const DEFAULT_THEME = {
   steel: "#888d97",
 };
 
-// Five real, confirmed exoplanet discoveries — not our solar system, not
-// invented. "distance" is how far away it actually is, shown in the toast
-// when you land there. Each keeps the terrain style that best matches
-// what's actually known about that world.
+// Ten real, confirmed worlds — our own home planet plus nine genuine
+// exoplanet discoveries. Not invented, not just our solar system.
+// "distance" is how far away it actually is, shown in the toast when
+// you land there. Each has a terrain style matched to what's actually
+// known (or strongly suspected) about that world.
 const PLANETS = [
   {
     // Found in 2005 via gravitational microlensing — a frozen super-Earth,
@@ -264,11 +265,23 @@ const PLANETS = [
     id: "ogle-390lb",
     name: "OGLE-2005-BLG-390Lb",
     distance: "21,500 light-years away",
-    top: 700,
+    top: 500,
     side: "left",
     offset: "3%",
     size: 9,
     theme: { bg: "#04070c", ivory: "#eaf3f3", gold: "#7fe3e0", frost: "#a9d8e6", steel: "#7c98a0" },
+  },
+  {
+    // Home. The pale blue dot — included because it's the one habitable
+    // world we know for certain.
+    id: "earth",
+    name: "Earth",
+    distance: "right here — home",
+    top: 1100,
+    side: "right",
+    offset: "4%",
+    size: 10,
+    theme: { bg: "#040a0c", ivory: "#f2faf5", gold: "#ffd77a", frost: "#7ec8e3", steel: "#7fae8f" },
   },
   {
     // A lava world so hot its atmosphere may rain vaporized rock —
@@ -276,11 +289,23 @@ const PLANETS = [
     id: "cancri-e",
     name: "55 Cancri e",
     distance: "41 light-years away",
-    top: 1650,
-    side: "right",
-    offset: "4%",
+    top: 1700,
+    side: "left",
+    offset: "2.5%",
     size: 11,
     theme: { bg: "#0c0503", ivory: "#f7e9df", gold: "#e4572e", frost: "#f2a65a", steel: "#a37c6b" },
+  },
+  {
+    // The closest known exoplanet to Earth, orbiting the nearest star to
+    // the Sun — likely tidally locked, bathed in permanent dim red twilight.
+    id: "proxima-b",
+    name: "Proxima Centauri b",
+    distance: "4.2 light-years away",
+    top: 2300,
+    side: "right",
+    offset: "3.5%",
+    size: 9,
+    theme: { bg: "#0a0403", ivory: "#f7e5e0", gold: "#c1503a", frost: "#d98a7a", steel: "#8a5c52" },
   },
   {
     // One of the first exoplanets ever confirmed (1992) — a scorched,
@@ -288,11 +313,23 @@ const PLANETS = [
     id: "draugr",
     name: "Draugr (PSR B1257+12 b)",
     distance: "2,300 light-years away",
-    top: 2650,
+    top: 2900,
     side: "left",
-    offset: "2.5%",
+    offset: "3%",
     size: 8,
     theme: { bg: "#06040b", ivory: "#ece7f7", gold: "#6fcf97", frost: "#b892ff", steel: "#8b84a3" },
+  },
+  {
+    // Earth-size, in its star's habitable zone, found by NASA's TESS
+    // telescope — one of the best current candidates for a livable world.
+    id: "toi-700d",
+    name: "TOI-700 d",
+    distance: "100 light-years away",
+    top: 3500,
+    side: "right",
+    offset: "4%",
+    size: 10,
+    theme: { bg: "#030a0a", ivory: "#eafbf6", gold: "#e08a5b", frost: "#5bc2b0", steel: "#7a9a96" },
   },
   {
     // The real "Tatooine" — a desert world orbiting two suns at once,
@@ -300,11 +337,23 @@ const PLANETS = [
     id: "kepler-16b",
     name: "Kepler-16b",
     distance: "245 light-years away",
-    top: 3750,
-    side: "right",
-    offset: "3.5%",
+    top: 4100,
+    side: "left",
+    offset: "2.5%",
     size: 10,
     theme: { bg: "#0a0602", ivory: "#f7ecd8", gold: "#f2c14e", frost: "#d9b88f", steel: "#a8967d" },
+  },
+  {
+    // The first validated Earth-sized planet found in another star's
+    // habitable zone (2014) — orbits a dim red dwarf.
+    id: "kepler-186f",
+    name: "Kepler-186f",
+    distance: "582 light-years away",
+    top: 4700,
+    side: "right",
+    offset: "3.5%",
+    size: 9,
+    theme: { bg: "#0a0502", ivory: "#f7ecdf", gold: "#d97b3f", frost: "#e8ab7a", steel: "#9c7656" },
   },
   {
     // A rocky, potentially habitable world in the TRAPPIST-1 system —
@@ -312,10 +361,22 @@ const PLANETS = [
     id: "trappist-1e",
     name: "TRAPPIST-1e",
     distance: "40 light-years away",
-    top: 4650,
+    top: 5300,
     side: "left",
     offset: "3%",
     size: 9,
     theme: { bg: "#05050a", ivory: "#e8e9f5", gold: "#8f9bff", frost: "#c3c9ff", steel: "#8890b3" },
+  },
+  {
+    // A "Hycean" candidate — a thick hydrogen atmosphere over a possible
+    // global ocean. In 2023, its atmosphere showed a possible biosignature gas.
+    id: "k2-18b",
+    name: "K2-18b",
+    distance: "124 light-years away",
+    top: 5900,
+    side: "right",
+    offset: "4%",
+    size: 10,
+    theme: { bg: "#030a07", ivory: "#eef7ea", gold: "#b8c96a", frost: "#6fd6a0", steel: "#7f9c85" },
   },
 ];
