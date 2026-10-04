@@ -84,19 +84,25 @@ function flashToTheme(theme, planetName, planetId, distance, planet) {
     paintApproachSphere(planet || null);
     return;
   }
-  overlay.style.opacity = "1";
+
+  // Expand the black iris (with a spinning vortex inside it) until it
+  // swallows the whole screen — like falling into the black hole.
+  overlay.classList.add("is-active");
+
   window.setTimeout(() => {
     // behavior: "instant" overrides the page's global smooth-scroll CSS —
     // without it, this would animate and still be visibly scrolling once
-    // the overlay fades back in.
+    // the overlay contracts again.
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     applyThemeVars(theme);
     setLandscape(planetId || null);
     paintApproachSphere(planet || null);
+
+    // Hold fully black for a beat before emerging, for a bit of drama.
     window.setTimeout(() => {
-      overlay.style.opacity = "0";
-    }, 60);
-  }, 420);
+      overlay.classList.remove("is-active");
+    }, 160);
+  }, 760);
 
   showThemeToast(planetName, distance);
 }
