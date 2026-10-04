@@ -169,39 +169,13 @@ body {
   }
 }
 
-/* ---------- wormhole (second anomaly, off to the side) ---------- */
-.wormhole {
-  position: absolute;
-  top: 16%;
-  left: 10%;
-  width: min(72px, 8vw);
-  height: min(72px, 8vw);
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    var(--frost),
-    transparent 28%,
-    var(--gold) 50%,
-    transparent 78%,
-    var(--frost)
-  );
-  filter: blur(0.6px);
-  opacity: 0.6;
-  animation: wormhole-spin 7s linear infinite;
-  box-shadow: 0 0 26px 6px rgba(157, 180, 201, 0.2);
+/* Once you're on a planet, the home system's black hole and ring fade
+   out — you're looking at the new world now, not Gargantua. */
+[data-landscape] .hero-ring,
+[data-landscape] .black-hole-wrap {
+  opacity: 0;
+  transition: opacity 0.5s ease;
   pointer-events: none;
-}
-.wormhole::after {
-  content: "";
-  position: absolute;
-  inset: 24%;
-  border-radius: 50%;
-  background: var(--bg);
-  box-shadow: inset 0 0 12px 3px rgba(0, 0, 0, 0.85);
-}
-@keyframes wormhole-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 /* ---------- shimmering title text ---------- */
@@ -380,15 +354,44 @@ a:focus-visible, button:focus-visible {
   transform: translate(-50%, 0);
 }
 
-/* ---------- warp transition overlay ---------- */
+/* ---------- warp transition overlay ----------
+   A black iris that expands from the center to swallow the screen
+   (like falling into the black hole), with a spinning vortex swirl
+   inside it, then contracts back down to reveal the new planet. */
 .warp-overlay {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: var(--bg);
-  opacity: 0;
+  background: #000;
+  clip-path: circle(0% at 50% 50%);
   pointer-events: none;
-  transition: opacity 0.42s ease;
+  overflow: hidden;
+  transition: clip-path 0.75s cubic-bezier(0.64, 0, 0.35, 1);
+}
+.warp-overlay.is-active {
+  clip-path: circle(145% at 50% 50%);
+}
+.warp-vortex {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--gold),
+    transparent 22%,
+    var(--frost),
+    transparent 48%,
+    var(--gold),
+    transparent 74%,
+    var(--frost)
+  );
+  opacity: 0;
+  transform: scale(0.15) rotate(0deg);
+  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.64, 0, 0.35, 1);
+}
+.warp-overlay.is-active .warp-vortex {
+  opacity: 0.85;
+  transform: scale(2.4) rotate(620deg);
 }
 
 /* ---------- theme toast ---------- */
@@ -653,6 +656,124 @@ a:focus-visible, button:focus-visible {
   animation: particle-shimmer ease-in-out infinite;
 }
 
+/* ---------- Earth: home — lush rolling hills, warm sun, drifting clouds ---------- */
+[data-landscape="earth"] .landscape-sky {
+  background:
+    radial-gradient(ellipse 60% 35% at 65% 30%, var(--gold) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 80%);
+}
+[data-landscape="earth"] .landscape-sun {
+  width: 84px;
+  height: 84px;
+  background: radial-gradient(circle, #fffbe8 0%, var(--gold) 55%, transparent 100%);
+  box-shadow: 0 0 60px 16px rgba(255, 215, 122, 0.3);
+}
+[data-landscape="earth"] .landscape-ground {
+  background: linear-gradient(180deg, var(--frost) 0%, var(--bg) 85%);
+  clip-path: polygon(
+    0% 100%, 0% 84%, 15% 80%, 30% 86%, 45% 79%, 60% 85%, 75% 80%, 90% 85%, 100% 81%, 100% 100%
+  );
+}
+[data-landscape="earth"] .landscape-particles .particle {
+  background: var(--ivory);
+  width: 4px;
+  height: 4px;
+  animation: particle-drift linear infinite;
+}
+
+/* ---------- Proxima Centauri b: closest exoplanet — huge dim red sun, permanent twilight ---------- */
+[data-landscape="proxima-b"] .landscape-sky {
+  background:
+    radial-gradient(ellipse 65% 40% at 68% 55%, var(--gold) 0%, transparent 72%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 80%);
+}
+[data-landscape="proxima-b"] .landscape-sun {
+  width: 150px;
+  height: 150px;
+  top: 48%;
+  background: radial-gradient(circle, #ffcdbb 0%, var(--gold) 50%, transparent 100%);
+  box-shadow: 0 0 70px 20px rgba(193, 80, 58, 0.3);
+}
+[data-landscape="proxima-b"] .landscape-ground {
+  clip-path: polygon(
+    0% 100%, 0% 78%, 12% 82%, 25% 74%, 38% 80%, 52% 72%, 66% 79%, 80% 73%, 92% 80%, 100% 76%, 100% 100%
+  );
+}
+[data-landscape="proxima-b"] .landscape-particles .particle {
+  background: var(--gold);
+  width: 2px;
+  height: 2px;
+  animation: particle-drift linear infinite;
+}
+
+/* ---------- TOI-700 d: habitable-zone ocean world — gentle waves, shimmering light ---------- */
+[data-landscape="toi-700d"] .landscape-sky {
+  background:
+    radial-gradient(ellipse 55% 30% at 55% 35%, var(--gold) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 80%);
+}
+[data-landscape="toi-700d"] .landscape-sun {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #fff0e0 0%, var(--gold) 55%, transparent 100%);
+}
+[data-landscape="toi-700d"] .landscape-ground {
+  background: linear-gradient(180deg, var(--frost) 0%, var(--bg) 85%);
+  clip-path: polygon(
+    0% 100%, 0% 85%, 10% 88%, 20% 83%, 30% 87%, 40% 82%, 50% 86%,
+    60% 81%, 70% 85%, 80% 80%, 90% 84%, 100% 82%, 100% 100%
+  );
+}
+[data-landscape="toi-700d"] .landscape-particles .particle {
+  background: var(--frost);
+  animation: particle-shimmer ease-in-out infinite;
+}
+
+/* ---------- Kepler-186f: first Earth-size habitable-zone world — autumn-toned hills under a dim dwarf star ---------- */
+[data-landscape="kepler-186f"] .landscape-sky {
+  background:
+    radial-gradient(ellipse 60% 32% at 60% 30%, var(--gold) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 80%);
+}
+[data-landscape="kepler-186f"] .landscape-sun {
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle, #ffe3c2 0%, var(--gold) 55%, transparent 100%);
+}
+[data-landscape="kepler-186f"] .landscape-ground {
+  clip-path: polygon(
+    0% 100%, 0% 74%, 14% 68%, 28% 76%, 42% 65%, 56% 74%, 70% 62%, 84% 72%, 100% 66%, 100% 100%
+  );
+}
+[data-landscape="kepler-186f"] .landscape-particles .particle {
+  background: var(--gold);
+  animation: particle-rise linear infinite;
+}
+
+/* ---------- K2-18b: possible ocean "Hycean" world — hazy green atmosphere, flat sea, rising bubbles ---------- */
+[data-landscape="k2-18b"] .landscape-sky {
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 30%, var(--gold) 0%, transparent 65%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 82%);
+  opacity: 0.55;
+}
+[data-landscape="k2-18b"] .landscape-sun {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--ivory) 0%, var(--gold) 55%, transparent 100%);
+  filter: blur(2px);
+}
+[data-landscape="k2-18b"] .landscape-ground {
+  background: linear-gradient(180deg, var(--frost) 0%, var(--bg) 85%);
+  clip-path: polygon(
+    0% 100%, 0% 88%, 25% 90%, 50% 86%, 75% 90%, 100% 87%, 100% 100%
+  );
+}
+[data-landscape="k2-18b"] .landscape-particles .particle {
+  background: var(--frost);
+  animation: particle-bubble linear infinite;
+}
+
 @keyframes particle-fall {
   from { transform: translateY(-5vh); opacity: 0.85; }
   to { transform: translateY(105vh); opacity: 0; }
@@ -672,6 +793,11 @@ a:focus-visible, button:focus-visible {
 @keyframes particle-shimmer {
   0%, 100% { transform: translateY(0); opacity: 0.2; }
   50% { transform: translateY(-16px); opacity: 0.8; }
+}
+@keyframes particle-bubble {
+  0% { transform: translate(0, 10vh) scale(0.6); opacity: 0.7; }
+  50% { transform: translate(14px, -45vh) scale(1); opacity: 0.85; }
+  100% { transform: translate(-10px, -105vh) scale(1.2); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
