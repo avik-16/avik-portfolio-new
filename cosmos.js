@@ -1,3 +1,4 @@
+
 /* ============================================================
    COSMOS — the ship cursor + hidden planet Easter egg.
    Planet content (names, positions, color palettes) lives in
@@ -35,7 +36,10 @@ function paintApproachSphere(planet) {
     return;
   }
   const { frost, gold, bg } = planet.theme;
-  sphere.style.background = `radial-gradient(circle at 34% 32%, ${frost}, ${gold} 48%, ${bg} 88%)`;
+  sphere.style.setProperty("--p-frost", frost);
+  sphere.style.setProperty("--p-gold", gold);
+  sphere.style.setProperty("--p-bg", bg);
+  sphere.style.backgroundImage = planet.texture;
 }
 
 // Shows/hides the full landscape (sky, sun, ground, particles) for a
@@ -194,15 +198,19 @@ function renderPlanets() {
 
   field.innerHTML = PLANETS.map((p) => {
     const sideStyle = p.side === "left" ? `left:${p.offset};` : `right:${p.offset};`;
-    const bg = `radial-gradient(circle at 32% 32%, ${p.theme.frost}, ${p.theme.gold} 55%, ${p.theme.bg} 100%)`;
+    const vars = `--p-frost:${p.theme.frost}; --p-gold:${p.theme.gold}; --p-bg:${p.theme.bg};`;
+    // Each planet spins at its own lazy, slightly different speed (70–130s)
+    // so the field doesn't look mechanically uniform.
+    const spinDuration = 70 + (p.size * 3.7) % 60;
     return `
       <button
         type="button"
         class="planet"
         data-planet-id="${p.id}"
         aria-label="Switch the site's theme to ${p.name}, ${p.distance}"
-        style="top:${p.top}px; ${sideStyle} width:${p.size}px; height:${p.size}px; background:${bg};"
+        style="top:${p.top}px; ${sideStyle} width:${p.size}px; height:${p.size}px; ${vars}"
       >
+        <span class="planet-disc" style="background-image:${p.texture}; animation-duration:${spinDuration}s;"></span>
         <span class="planet-label f-mono">${p.name}</span>
       </button>`;
   }).join("");
@@ -245,7 +253,7 @@ function initDescentScroll() {
     // Phase 1 — descent: sphere grows and fades into the landscape.
     const approachProgress = Math.min(1, scrollY / APPROACH_RANGE);
     const eased = approachProgress * approachProgress * (3 - 2 * approachProgress);
-    approachEl.style.transform = `translate(-50%, -50%) scale(${1 + eased * 13})`;
+    approachEl.style.transform = `translate(-50%, -50%) scale(${1 + eased * 13}) rotate(${eased * 80}deg)`;
     const sphereFade = approachProgress < 0.55 ? 1 : Math.max(0, 1 - (approachProgress - 0.55) / 0.45);
     approachEl.style.opacity = String(sphereFade);
 
