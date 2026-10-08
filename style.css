@@ -321,13 +321,27 @@ a:focus-visible, button:focus-visible {
   border: none;
   padding: 0;
   z-index: 2;
+  background: none;
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.15);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 .planet:hover,
 .planet:focus-visible {
-  transform: scale(2.1);
-  box-shadow: 0 0 16px 5px rgba(255, 255, 255, 0.35);
+  transform: scale(2.4);
+  box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.4);
+}
+/* The textured surface — a separate layer so it can slowly rotate
+   (continents/craters drifting past) without spinning the hover label. */
+.planet-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: planet-spin linear infinite;
+}
+@keyframes planet-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 .planet-label {
   position: absolute;
@@ -356,8 +370,9 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- warp transition overlay ----------
    A black iris that expands from the center to swallow the screen
-   (like falling into the black hole), with a spinning vortex swirl
-   inside it, then contracts back down to reveal the new planet. */
+   (like falling into the black hole), with two counter-rotating vortex
+   swirls and an outward shockwave ring, then contracts back down to
+   reveal the new planet. */
 .warp-overlay {
   position: fixed;
   inset: 0;
@@ -378,20 +393,61 @@ a:focus-visible, button:focus-visible {
   background: conic-gradient(
     from 0deg,
     var(--gold),
-    transparent 22%,
+    transparent 20%,
     var(--frost),
-    transparent 48%,
+    transparent 45%,
     var(--gold),
-    transparent 74%,
+    transparent 70%,
     var(--frost)
   );
   opacity: 0;
-  transform: scale(0.15) rotate(0deg);
-  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.64, 0, 0.35, 1);
+  transform: scale(0.1) rotate(0deg);
+  transition: opacity 0.45s ease, transform 0.85s cubic-bezier(0.64, 0, 0.35, 1);
+}
+.warp-vortex--2 {
+  inset: -15%;
+  background: conic-gradient(
+    from 90deg,
+    transparent,
+    var(--frost) 12%,
+    transparent 30%,
+    var(--gold) 45%,
+    transparent 60%,
+    var(--frost) 78%,
+    transparent 92%
+  );
+  mix-blend-mode: screen;
+  transform: scale(0.1) rotate(0deg);
+  transition: opacity 0.45s ease 0.08s, transform 0.95s cubic-bezier(0.64, 0, 0.35, 1) 0.08s;
 }
 .warp-overlay.is-active .warp-vortex {
   opacity: 0.85;
-  transform: scale(2.4) rotate(620deg);
+  transform: scale(2.6) rotate(680deg);
+}
+.warp-overlay.is-active .warp-vortex--2 {
+  opacity: 0.6;
+  transform: scale(2.1) rotate(-540deg);
+}
+/* A thin ring that bursts outward right at the moment of impact. */
+.warp-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  border: 2px solid var(--frost);
+  opacity: 0;
+  transform: scale(0);
+}
+.warp-overlay.is-active .warp-shockwave {
+  animation: shockwave-burst 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+@keyframes shockwave-burst {
+  0% { opacity: 0.9; transform: scale(0); border-width: 3px; }
+  70% { opacity: 0.35; }
+  100% { opacity: 0; transform: scale(60); border-width: 0.5px; }
 }
 
 /* ---------- theme toast ---------- */
@@ -503,12 +559,13 @@ a:focus-visible, button:focus-visible {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
   opacity: 0;
   pointer-events: none;
   z-index: 1;
   will-change: transform, opacity;
-  background: radial-gradient(circle at 34% 32%, var(--frost), var(--gold) 48%, var(--bg) 88%);
+  background-color: var(--bg);
   box-shadow: 0 0 120px 40px rgba(201, 168, 118, 0.2);
 }
 
