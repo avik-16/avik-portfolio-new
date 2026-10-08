@@ -1,3 +1,4 @@
+
 /* ============================================================
    ALL SITE CONTENT LIVES IN THIS FILE.
    Edit these arrays to add/remove/change projects, jobs, skills,
@@ -258,6 +259,10 @@ const DEFAULT_THEME = {
 // "distance" is how far away it actually is, shown in the toast when
 // you land there. Each has a terrain style matched to what's actually
 // known (or strongly suspected) about that world.
+// "texture" is a stack of small radial-gradients (continents, craters,
+// cloud bands, ice caps...) layered over the base lit-sphere gradient —
+// drawn first-to-last with the FIRST one on top. This is what makes each
+// marker read as an actual distinct planet instead of a flat color blob.
 const PLANETS = [
   {
     // Found in 2005 via gravitational microlensing — a frozen super-Earth,
@@ -268,8 +273,12 @@ const PLANETS = [
     top: 500,
     side: "left",
     offset: "3%",
-    size: 9,
+    size: 17,
     theme: { bg: "#04070c", ivory: "#eaf3f3", gold: "#7fe3e0", frost: "#a9d8e6", steel: "#7c98a0" },
+    texture:
+      "radial-gradient(circle at 58% 68%, rgba(255,255,255,0.55) 0%, transparent 32%)," +
+      "radial-gradient(circle at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 22%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // Home. The pale blue dot — included because it's the one habitable
@@ -280,8 +289,13 @@ const PLANETS = [
     top: 1100,
     side: "right",
     offset: "4%",
-    size: 10,
+    size: 19,
     theme: { bg: "#040a0c", ivory: "#f2faf5", gold: "#ffd77a", frost: "#7ec8e3", steel: "#7fae8f" },
+    texture:
+      "radial-gradient(circle at 50% 22%, rgba(255,255,255,0.45) 0%, transparent 28%)," +
+      "radial-gradient(circle at 28% 68%, rgba(86,140,82,0.85) 0%, transparent 32%)," +
+      "radial-gradient(circle at 68% 52%, rgba(86,140,82,0.75) 0%, transparent 26%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // A lava world so hot its atmosphere may rain vaporized rock —
@@ -292,8 +306,12 @@ const PLANETS = [
     top: 1700,
     side: "left",
     offset: "2.5%",
-    size: 11,
+    size: 21,
     theme: { bg: "#0c0503", ivory: "#f7e9df", gold: "#e4572e", frost: "#f2a65a", steel: "#a37c6b" },
+    texture:
+      "radial-gradient(circle at 62% 42%, rgba(255,214,140,0.65) 0%, transparent 24%)," +
+      "radial-gradient(circle at 38% 62%, rgba(20,8,5,0.6) 0%, transparent 30%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 50%, var(--p-bg) 100%)",
   },
   {
     // The closest known exoplanet to Earth, orbiting the nearest star to
@@ -304,8 +322,11 @@ const PLANETS = [
     top: 2300,
     side: "right",
     offset: "3.5%",
-    size: 9,
+    size: 17,
     theme: { bg: "#0a0403", ivory: "#f7e5e0", gold: "#c1503a", frost: "#d98a7a", steel: "#8a5c52" },
+    texture:
+      "radial-gradient(circle at 70% 52%, rgba(0,0,0,0.55) 0%, transparent 42%)," +
+      "radial-gradient(circle at 28% 32%, var(--p-frost), var(--p-gold) 45%, var(--p-bg) 100%)",
   },
   {
     // One of the first exoplanets ever confirmed (1992) — a scorched,
@@ -316,8 +337,13 @@ const PLANETS = [
     top: 2900,
     side: "left",
     offset: "3%",
-    size: 8,
+    size: 16,
     theme: { bg: "#06040b", ivory: "#ece7f7", gold: "#6fcf97", frost: "#b892ff", steel: "#8b84a3" },
+    texture:
+      "radial-gradient(circle at 62% 58%, rgba(0,0,0,0.55) 0%, transparent 16%)," +
+      "radial-gradient(circle at 36% 66%, rgba(0,0,0,0.45) 0%, transparent 13%)," +
+      "radial-gradient(circle at 70% 28%, rgba(255,255,255,0.4) 0%, transparent 12%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // Earth-size, in its star's habitable zone, found by NASA's TESS
@@ -328,8 +354,12 @@ const PLANETS = [
     top: 3500,
     side: "right",
     offset: "4%",
-    size: 10,
+    size: 18,
     theme: { bg: "#030a0a", ivory: "#eafbf6", gold: "#e08a5b", frost: "#5bc2b0", steel: "#7a9a96" },
+    texture:
+      "radial-gradient(circle at 45% 25%, rgba(255,255,255,0.4) 0%, transparent 26%)," +
+      "radial-gradient(circle at 65% 62%, rgba(20,60,55,0.5) 0%, transparent 20%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // The real "Tatooine" — a desert world orbiting two suns at once,
@@ -340,8 +370,12 @@ const PLANETS = [
     top: 4100,
     side: "left",
     offset: "2.5%",
-    size: 10,
+    size: 18,
     theme: { bg: "#0a0602", ivory: "#f7ecd8", gold: "#f2c14e", frost: "#d9b88f", steel: "#a8967d" },
+    texture:
+      "radial-gradient(circle at 40% 55%, rgba(180,120,40,0.45) 0%, transparent 38%)," +
+      "radial-gradient(circle at 65% 65%, rgba(180,120,40,0.3) 0%, transparent 24%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // The first validated Earth-sized planet found in another star's
@@ -352,8 +386,12 @@ const PLANETS = [
     top: 4700,
     side: "right",
     offset: "3.5%",
-    size: 9,
+    size: 17,
     theme: { bg: "#0a0502", ivory: "#f7ecdf", gold: "#d97b3f", frost: "#e8ab7a", steel: "#9c7656" },
+    texture:
+      "radial-gradient(circle at 58% 60%, rgba(120,60,20,0.45) 0%, transparent 32%)," +
+      "radial-gradient(circle at 30% 40%, rgba(180,100,50,0.3) 0%, transparent 24%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // A rocky, potentially habitable world in the TRAPPIST-1 system —
@@ -364,8 +402,12 @@ const PLANETS = [
     top: 5300,
     side: "left",
     offset: "3%",
-    size: 9,
+    size: 17,
     theme: { bg: "#05050a", ivory: "#e8e9f5", gold: "#8f9bff", frost: "#c3c9ff", steel: "#8890b3" },
+    texture:
+      "radial-gradient(circle at 50% 72%, rgba(255,255,255,0.4) 0%, transparent 26%)," +
+      "radial-gradient(circle at 65% 35%, rgba(255,255,255,0.22) 0%, transparent 20%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
   {
     // A "Hycean" candidate — a thick hydrogen atmosphere over a possible
@@ -376,7 +418,11 @@ const PLANETS = [
     top: 5900,
     side: "right",
     offset: "4%",
-    size: 10,
+    size: 19,
     theme: { bg: "#030a07", ivory: "#eef7ea", gold: "#b8c96a", frost: "#6fd6a0", steel: "#7f9c85" },
+    texture:
+      "radial-gradient(circle at 35% 40%, rgba(255,255,255,0.28) 0%, transparent 46%)," +
+      "radial-gradient(circle at 68% 65%, rgba(255,255,255,0.18) 0%, transparent 40%)," +
+      "radial-gradient(circle at 32% 30%, var(--p-frost), var(--p-gold) 55%, var(--p-bg) 100%)",
   },
 ];
